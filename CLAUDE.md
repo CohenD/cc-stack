@@ -4,7 +4,7 @@ Pre-wired Claude Code workspace: **Next.js 16 · AI SDK 7 · shadcn/ui · Tailwi
 
 ## Reach for
 
-- **UI (so it doesn't look AI-generated):** invoke `frontend-design` to set an aesthetic direction *before* building, then the `shadcn` MCP/skill for components. Don't ship default-shadcn-everywhere.
+- **UI (so it doesn't look AI-generated):** invoke `frontend-design` to set an aesthetic direction *before* building; pull components from the `shadcn` MCP/skill instead of hand-rolling primitives — but give them a point of view, not default-shadcn-everywhere.
 - **AI features:** `ai-sdk` skill; default to the latest Claude via `@ai-sdk/anthropic`. v6→v7 upgrades: `migrate-ai-sdk-v6-to-v7`.
 - **Validation:** `zod` skill (v4 — `z.codec`, `z.toJSONSchema`, unified `error`). There is **no Zod MCP**, so the skill is the source of truth.
 - **Next.js runtime/docs:** `next-devtools` MCP — run `npm run dev` first for live errors.
