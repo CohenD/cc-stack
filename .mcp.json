@@ -19,6 +19,11 @@
         "${DUCKDB_PATH:-./data/dev.duckdb}",
         "--read-write"
       ]
+    },
+    "promptfoo": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "promptfoo@0.121.17", "mcp", "--transport", "stdio"]
     }
   }
 }

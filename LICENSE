@@ -29,3 +29,4 @@ retaining its own upstream license:
 - `shadcn` — from github.com/shadcn-ui/ui (MIT)
 - `zod` — from github.com/secondsky/claude-skills (MIT)
 - `frontend-design` — from github.com/anthropics/skills (see its bundled LICENSE.txt)
+- `promptfoo-evals` — from github.com/promptfoo/promptfoo (MIT)

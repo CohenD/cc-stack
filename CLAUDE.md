@@ -1,6 +1,6 @@
 # cc-stack — agent guide
 
-Pre-wired Claude Code workspace: **Next.js 16 · AI SDK 7 · shadcn/ui · Tailwind v4 (OKLCH) · Zod 4 · DuckDB.** Skills live in `.claude/skills/`, MCP servers in `.mcp.json` — prefer these live sources over working from memory.
+Pre-wired Claude Code workspace: **Next.js 16 · AI SDK 7 · shadcn/ui · Tailwind v4 (OKLCH) · Zod 4 · DuckDB · promptfoo evals.** Skills live in `.claude/skills/`, MCP servers in `.mcp.json` — prefer these live sources over working from memory.
 
 ## Reach for
 
@@ -9,6 +9,7 @@ Pre-wired Claude Code workspace: **Next.js 16 · AI SDK 7 · shadcn/ui · Tailwi
 - **Validation:** `zod` skill (v4 — `z.codec`, `z.toJSONSchema`, unified `error`). There is **no Zod MCP**, so the skill is the source of truth.
 - **Next.js runtime/docs:** `next-devtools` MCP — run `npm run dev` first for live errors.
 - **Data:** `duckdb` MCP — read-write SQL over `${DUCKDB_PATH:-./data/dev.duckdb}`.
+- **Evals (test/optimize prompts):** author suites with the `promptfoo-evals` skill; run them, read scores, and generate test cases via the `promptfoo` MCP (or `npm run eval` / `eval:view`). Iterate variants against the scores. Running evals needs `ANTHROPIC_API_KEY`.
 
 ## Rules
 

@@ -56,6 +56,7 @@ nothing to install, no network needed.
 | `shadcn` | `shadcn/ui` | Add/search/style shadcn components; understands your `components.json`. |
 | `frontend-design` | `anthropics/skills` | Distinctive, intentional UI design — typography, palette, signature element — so output doesn't read as templated AI defaults. Pairs with `shadcn` + Tailwind v4. |
 | `zod` | `secondsky/claude-skills` | Zod **v4** expert: type inference, `.refine()`/`.transform()`, `z.codec()`, JSON-Schema, error handling, v3→v4 migration. |
+| `promptfoo-evals` | `promptfoo/promptfoo` | Author/run/QA promptfoo eval suites — test sets, providers, assertions, model-graded rubrics. Pairs with the `promptfoo` MCP for the build→run→optimize loop. |
 
 ### MCP servers — [`.mcp.json`](./.mcp.json), allow-listed by [`.claude/settings.json`](./.claude/settings.json)
 
@@ -64,12 +65,12 @@ nothing to install, no network needed.
 | `next-devtools` | stdio | `npx -y next-devtools-mcp@0.4.0` | a running `npm run dev` for live errors |
 | `shadcn` | stdio | `npx -y shadcn@latest mcp` | `components.json` (included) |
 | `duckdb` | stdio | `uvx mcp-server-motherduck@1.0.7 --db-path … --read-write` | [`uv`](https://docs.astral.sh/uv/) (auto-installed by `setup.sh`) |
+| `promptfoo` | stdio | `npx -y promptfoo@0.121.17 mcp --transport stdio` | `ANTHROPIC_API_KEY` to *run* evals (starts without it) |
 
-`.claude/settings.json` names these three under `enabledMcpjsonServers`, so they
+`.claude/settings.json` names these four under `enabledMcpjsonServers`, so they
 start **without a per-server trust prompt** when you open Claude Code here — and
-nothing *else* is auto-trusted. (`next-devtools` and `shadcn` are pinned through
-this list but float to the latest CLI on launch; the DuckDB server is version-
-pinned for reproducibility.)
+nothing *else* is auto-trusted. (`shadcn` floats to the latest CLI on launch;
+`next-devtools`, `duckdb`, and `promptfoo` are version-pinned for reproducibility.)
 
 ---
 
@@ -81,7 +82,7 @@ what you want:
 | Var | Used by | Required? |
 | --- | --- | --- |
 | `DUCKDB_PATH` | `duckdb` MCP | Optional (defaults to `./data/dev.duckdb`) |
-| `ANTHROPIC_API_KEY` | the app's AI SDK code (`app/api/chat`) | Only if you build/run AI features |
+| `ANTHROPIC_API_KEY` | the app's AI SDK route (`app/api/chat`) **and** running `promptfoo` evals | Only to run AI features / evals (not needed for `eval:validate`) |
 
 > `npm run cc` loads `.env.local` for you. If you launch `claude` yourself,
 > `export` the vars first — Claude Code expands `${VAR}` in `.mcp.json` from the
@@ -99,6 +100,21 @@ real to build on:
 - **AI SDK 7** example route at `app/api/chat/route.ts` (`streamText` + `@ai-sdk/anthropic`)
 - **ESLint** flat config (`eslint.config.mjs`, `next/core-web-vitals` + `next/typescript`) — `npm run lint`
 - A committed `package-lock.json`; `setup.sh`/CI use `npm ci` for reproducible installs
+- **Evals** — promptfoo as the eval framework: starter suite at `evals/example/promptfooconfig.yaml`, the `promptfoo-evals` skill, the `promptfoo` MCP, and `npm run eval` / `eval:view` / `eval:validate`
+
+---
+
+## Evals (test & optimize prompts)
+
+promptfoo is wired as the eval framework. The loop Claude can drive end-to-end:
+
+```bash
+npm run eval:validate   # check the suite — no API key needed
+npm run eval            # run prompts × providers × tests (needs ANTHROPIC_API_KEY)
+npm run eval:view       # open the local results UI to compare runs
+```
+
+Ask Claude to *"add an eval for X"*: the **`promptfoo-evals`** skill writes the suite, then the **`promptfoo`** MCP generates test cases, runs it, and reads back scores — so Claude can iterate prompt variants against real numbers. Suites live in `evals/`.
 
 ---
 
@@ -121,7 +137,7 @@ I verified every package/endpoint while building this. A few notes:
 
 ## Security note
 
-`enabledMcpjsonServers` in `.claude/settings.json` auto-starts exactly the three
+`enabledMcpjsonServers` in `.claude/settings.json` auto-starts exactly the four
 named MCP servers with your local permissions when you open this workspace —
 that's the frictionless wiring. It does **not** bless any server you add later.
 Still: **only open a workspace in Claude Code if you trust its contents.** To
@@ -137,7 +153,7 @@ approve servers interactively instead, delete that key from
 ├── .mcp.json                  # MCP server definitions (project scope)
 ├── .claude/
 │   ├── settings.json          # allow-lists the project MCP servers
-│   └── skills/                # vendored skills (ai-sdk, migrate…, shadcn, zod)
+│   └── skills/                # vendored skills (ai-sdk, migrate…, shadcn, frontend-design, zod, promptfoo-evals)
 ├── .github/workflows/ci.yml   # lint + build on push/PR
 ├── CLAUDE.md                  # in-repo guide Claude reads on entry
 ├── setup.sh                   # one-shot bootstrap (uv + deps + data/ + .env.local)
@@ -146,6 +162,7 @@ approve servers interactively instead, delete that key from
 ├── eslint.config.mjs          # ESLint flat config (next/core-web-vitals)
 ├── app/                       # Next 16 app: layout · page · not-found · icon · api/chat
 ├── components/                # theme-provider + ui/ (shadcn components)
+├── evals/                     # promptfoo eval suites (starter: evals/example/)
 ├── lib/utils.ts               # cn() helper
 └── data/                      # local DuckDB files live here (gitignored)
 ```
@@ -155,5 +172,6 @@ approve servers interactively instead, delete that key from
 ## Credits
 
 Vendored Agent Skills retain their upstream licenses (see [`LICENSE`](./LICENSE)):
-`vercel/ai` (Apache-2.0), `shadcn/ui` (MIT), `secondsky/claude-skills` (MIT).
+`vercel/ai` (Apache-2.0), `shadcn/ui` (MIT), `secondsky/claude-skills` (MIT),
+`anthropics/skills` (`frontend-design`), `promptfoo/promptfoo` (MIT, `promptfoo-evals`).
 This repo is MIT-licensed.

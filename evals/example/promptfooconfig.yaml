@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+# Starter eval suite — a tiny sentiment classifier. Edit or replace.
+# Validate (no key):   npm run eval:validate
+# Run (needs key):     ANTHROPIC_API_KEY=... npm run eval   then   npm run eval:view
+description: "Example eval — sentiment classifier (starter)"
+
+prompts:
+  - "Classify the sentiment of the text as exactly one lowercase word — positive, negative, or neutral. Respond with only that word.\n\nText: {{text}}"
+
+providers:
+  # One provider = regression testing. Add a second id to compare models side-by-side.
+  # Swap to anthropic:messages:claude-sonnet-4-6 for more capability.
+  - id: anthropic:messages:claude-haiku-4-5
+    config:
+      temperature: 0
+
+# Deterministic assertions (no grader key needed). See the promptfoo-evals skill
+# + .claude/skills/promptfoo-evals/references/cheatsheet.md for model-graded rubrics.
+tests:
+  - description: clearly positive
+    vars:
+      text: "I absolutely love this — best purchase I've made all year!"
+    assert:
+      - type: icontains
+        value: positive
+  - description: clearly negative
+    vars:
+      text: "Terrible experience. It broke on day one and support ignored me."
+    assert:
+      - type: icontains
+        value: negative
+  - description: neutral / factual
+    vars:
+      text: "The package arrived on Tuesday afternoon."
+    assert:
+      - type: icontains
+        value: neutral

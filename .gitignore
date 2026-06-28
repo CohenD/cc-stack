@@ -23,6 +23,12 @@ data/*.db
 *.duckdb
 *.duckdb.wal
 
+# promptfoo eval artifacts (local cache + generated reports/outputs)
+.promptfoo/
+promptfoo-errors.log
+/output.json
+/output.html
+
 # misc
 .DS_Store
 *.pem
