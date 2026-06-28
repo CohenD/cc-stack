@@ -40,6 +40,7 @@ These ship **in the repo**, so they're available the moment you clone — nothin
 | `ai-sdk` | `vercel/ai` | Build with the Vercel AI SDK (generateText/streamText/agents/tools/useChat). |
 | `migrate-ai-sdk-v6-to-v7` | `vercel/ai` | Upgrade AI SDK code from v6 → v7. |
 | `shadcn` | `shadcn/ui` | Add/search/style shadcn components; understands your `components.json`. |
+| `zod` | `secondsky/claude-skills` | Zod **v4** expert: type inference, `.refine()`/`.transform()`, `z.codec()`, JSON-Schema, error handling, v3→v4 migration. |
 
 Re-sync at any time with `npx skills install`.
 
@@ -79,10 +80,11 @@ I verified every package/endpoint while building this. Two corrections:
 
 - **shadcn MCP** → the working command is `npx shadcn@latest mcp` (the MCP server
   ships inside the `shadcn` CLI). There is no `@shadcn/mcp-server` package on npm.
-- **Zod MCP** → **omitted.** No official Zod MCP server exists on npm
-  (`@zod/mcp-server`, `zod-mcp`, `@zod/mcp` all 404; the only hit is an unrelated
-  third-party tool). Adding a non-existent server would just fail at launch, so
-  Zod is left out and Claude relies on its Zod 4 knowledge. If an official one
+- **Zod** → covered by a **skill, not an MCP.** No official Zod MCP server exists
+  on npm (`@zod/mcp-server`, `zod-mcp`, `@zod/mcp` all 404; the only hit is an
+  unrelated third-party tool), so wiring one would just fail at launch. Instead a
+  vendored **Zod v4 skill** (`secondsky/claude-skills`, 179★ MIT, verified to
+  target Zod 4.1.12+) gives Claude expert coverage offline. If an official MCP
   ships later, add it to `.mcp.json`.
 
 Everything else (`next-devtools-mcp@latest`, `mcp-server-motherduck` on PyPI, the
@@ -107,6 +109,7 @@ If you'd rather approve servers individually, delete that line from
 ├── .mcp.json              # MCP server definitions (project scope)
 ├── .claude/settings.json  # auto-approves the project MCP servers
 ├── .agents/skills/        # vendored skills (ai-sdk, migrate…, shadcn)
+├── .claude/skills/        # vendored zod v4 skill
 ├── skills-lock.json       # skill provenance + hashes
 ├── CLAUDE.md              # in-repo guide Claude reads on entry
 ├── setup.sh               # one-shot bootstrap

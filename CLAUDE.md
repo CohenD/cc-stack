@@ -8,13 +8,14 @@ when a live source exists.
 
 Next.js 16 · Vercel AI SDK 7 · shadcn/ui · Tailwind v4 (OKLCH) · Zod 4 · DuckDB
 
-## Skills (vendored in `.agents/skills/`, tracked by `skills-lock.json`)
+## Skills (vendored in `.agents/skills/` + `.claude/skills/`, tracked by `skills-lock.json`)
 
 | Skill | Use it when |
 | --- | --- |
 | `ai-sdk` | Building anything with the Vercel AI SDK — `generateText`, `streamText`, agents, tools, `useChat`, structured output, embeddings. |
 | `migrate-ai-sdk-v6-to-v7` | Upgrading AI SDK code from v6 → v7 (breaking changes, `system`→`instructions`, telemetry, tool context). |
 | `shadcn` | Adding/searching/styling shadcn components, working with `components.json`, registries, or `--preset` codes. |
+| `zod` | Writing or debugging Zod **v4** schemas — `.refine()`, `.transform()`, `z.codec()`, type inference, `z.toJSONSchema()`, error handling, or v3→v4 migration. Has references for advanced patterns, type-inference, and a migration guide. |
 
 ## MCP servers (`.mcp.json`, auto-approved via `.claude/settings.json`)
 
@@ -37,8 +38,10 @@ Next.js 16 · Vercel AI SDK 7 · shadcn/ui · Tailwind v4 (OKLCH) · Zod 4 · Du
   `@ai-sdk/anthropic`.
 - **Next.js runtime issues:** Use `next-devtools` MCP to read real errors and the
   local Next docs gateway rather than guessing API shapes.
-- **Validation:** Zod 4. There is **no Zod MCP server** (none exists on npm as of
-  this writing) — rely on your knowledge of Zod 4 and the type-inference rules.
+- **Validation:** Zod 4. Use the `zod` skill (it targets v4: `z.codec`,
+  `z.toJSONSchema`, `z.treeifyError`, unified `error` param). There is **no Zod
+  MCP server** (none exists on npm), so the skill is the source of truth — prefer
+  it over memory, especially for v4-only APIs and v3→v4 migration.
 
 ## Path aliases
 

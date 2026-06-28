@@ -18,6 +18,12 @@
       "sourceType": "github",
       "skillPath": "skills/shadcn/SKILL.md",
       "computedHash": "ac9d0d69caac7de1d1e5647f3db3bcd2f13af355d6b3a78780fbf7fc80e8dca0"
+    },
+    "zod": {
+      "source": "secondsky/claude-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/zod/skills/zod/SKILL.md",
+      "computedHash": "ebb08035d97225a107a9559e449b81600b876e3a03aaf644cc2bcfddbdb1c222"
     }
   }
 }
