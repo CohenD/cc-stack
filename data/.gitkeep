@@ -1,0 +1,2 @@
+# Local DuckDB database files live here (dev.duckdb, etc.).
+# The .duckdb files themselves are gitignored — this file just keeps the dir.
