@@ -108,8 +108,7 @@ If you'd rather approve servers individually, delete that line from
 .
 ├── .mcp.json              # MCP server definitions (project scope)
 ├── .claude/settings.json  # auto-approves the project MCP servers
-├── .agents/skills/        # vendored skills (ai-sdk, migrate…, shadcn)
-├── .claude/skills/        # vendored zod v4 skill
+├── .agents/skills/        # vendored skills (ai-sdk, migrate…, shadcn, zod)
 ├── skills-lock.json       # skill provenance + hashes
 ├── CLAUDE.md              # in-repo guide Claude reads on entry
 ├── setup.sh               # one-shot bootstrap
