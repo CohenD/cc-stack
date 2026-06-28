@@ -16,13 +16,6 @@
         "${DUCKDB_PATH:-./data/dev.duckdb}",
         "--read-write"
       ]
-    },
-    "google-docs": {
-      "type": "sse",
-      "url": "https://developerknowledge.googleapis.com/mcp",
-      "headers": {
-        "X-Goog-Api-Key": "${GOOGLE_API_KEY}"
-      }
     }
   }
 }

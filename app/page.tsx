@@ -8,7 +8,6 @@ const servers = [
   { name: "next-devtools", desc: "Live Next.js errors, routes, logs + docs gateway" },
   { name: "shadcn", desc: "Search / view / install UI from the registry" },
   { name: "duckdb", desc: "SQL over a local DuckDB file (read-write)" },
-  { name: "google-docs", desc: "Live search across Google's dev docs" },
 ];
 
 export default function Home() {

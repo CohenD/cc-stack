@@ -13,13 +13,13 @@ boots with a curated set of Skills and MCP servers already connected — no manu
 ```bash
 git clone https://github.com/CohenD/cc-stack.git
 cd cc-stack
-./setup.sh            # installs deps, syncs skills, seeds .env.local + data/
+./setup.sh            # installs uv + deps, caches DuckDB MCP, syncs skills, seeds .env.local + data/
 npm run cc            # loads .env.local and launches Claude Code, fully wired
 ```
 
-`npm run cc` is the "single tap": it sources `.env.local` (so the MCP servers can
-read your keys) and then runs `claude`. You can also just run `claude` directly if
-you've exported the env vars yourself, or if you don't need the Google docs server.
+`npm run cc` is the "single tap": it sources `.env.local` (e.g. an optional
+`DUCKDB_PATH`) and then runs `claude`. You can also just run `claude` directly —
+no MCP server requires a key out of the box.
 
 To run the app itself:
 
@@ -42,7 +42,7 @@ These ship **in the repo**, so they're available the moment you clone — nothin
 | `shadcn` | `shadcn/ui` | Add/search/style shadcn components; understands your `components.json`. |
 | `zod` | `secondsky/claude-skills` | Zod **v4** expert: type inference, `.refine()`/`.transform()`, `z.codec()`, JSON-Schema, error handling, v3→v4 migration. |
 
-Re-sync at any time with `npx skills install`.
+Re-sync at any time with `npm run skills:sync`.
 
 ### MCP servers — [`.mcp.json`](./.mcp.json), auto-approved by [`.claude/settings.json`](./.claude/settings.json)
 
@@ -50,8 +50,7 @@ Re-sync at any time with `npx skills install`.
 | --- | --- | --- | --- |
 | `next-devtools` | stdio | `npx -y next-devtools-mcp@latest` | a running `npm run dev` for live errors |
 | `shadcn` | stdio | `npx -y shadcn@latest mcp` | `components.json` (included) |
-| `duckdb` | stdio | `uvx mcp-server-motherduck --db-path … --read-write` | [`uv`](https://docs.astral.sh/uv/) installed |
-| `google-docs` | sse | `https://developerknowledge.googleapis.com/mcp` | `GOOGLE_API_KEY` |
+| `duckdb` | stdio | `uvx mcp-server-motherduck --db-path … --read-write` | [`uv`](https://docs.astral.sh/uv/) (auto-installed by `setup.sh`) |
 
 `enableAllProjectMcpServers: true` in `.claude/settings.json` means these start
 **without a per-server trust prompt** when you open Claude Code here.
@@ -64,7 +63,6 @@ Copy `.env.example` → `.env.local` and fill in what you want:
 
 | Var | Used by | Required? |
 | --- | --- | --- |
-| `GOOGLE_API_KEY` | `google-docs` MCP | Only to enable that server |
 | `DUCKDB_PATH` | `duckdb` MCP | Optional (defaults to `./data/dev.duckdb`) |
 | `ANTHROPIC_API_KEY` | the app's AI SDK code | Only if you build AI features |
 
@@ -76,7 +74,7 @@ Copy `.env.example` → `.env.local` and fill in what you want:
 
 ## Notes & deviations from the original brief
 
-I verified every package/endpoint while building this. Two corrections:
+I verified every package/endpoint while building this. A few notes:
 
 - **shadcn MCP** → the working command is `npx shadcn@latest mcp` (the MCP server
   ships inside the `shadcn` CLI). There is no `@shadcn/mcp-server` package on npm.
@@ -87,8 +85,13 @@ I verified every package/endpoint while building this. Two corrections:
   target Zod 4.1.12+) gives Claude expert coverage offline. If an official MCP
   ships later, add it to `.mcp.json`.
 
-Everything else (`next-devtools-mcp@latest`, `mcp-server-motherduck` on PyPI, the
-Google Developer Knowledge endpoint) was confirmed live.
+- **Google GenAI / Developer Knowledge MCP** → **removed for now.** To add it
+  back, restore a `google-docs` SSE block in `.mcp.json`
+  (`https://developerknowledge.googleapis.com/mcp`, header
+  `X-Goog-Api-Key: ${GOOGLE_API_KEY}`) and set `GOOGLE_API_KEY` in `.env.local`.
+
+Everything else (`next-devtools-mcp@latest`, `mcp-server-motherduck` on PyPI) was
+confirmed live.
 
 ---
 

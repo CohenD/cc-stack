@@ -80,7 +80,7 @@ fi
 bold "Local config"
 if [ ! -f .env.local ]; then
   cp .env.example .env.local
-  ok "created .env.local (add GOOGLE_API_KEY / ANTHROPIC_API_KEY if you want them)"
+  ok "created .env.local (add ANTHROPIC_API_KEY if you build AI features)"
 else
   ok ".env.local already exists"
 fi

@@ -10,7 +10,7 @@
     "lint": "next lint",
     "cc": "set -a; [ -f .env.local ] && . ./.env.local; set +a; claude",
     "setup": "./setup.sh",
-    "skills:sync": "npx -y skills install"
+    "skills:sync": "npx -y skills experimental_install"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.0",

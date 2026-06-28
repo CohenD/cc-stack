@@ -24,7 +24,6 @@ Next.js 16 · Vercel AI SDK 7 · shadcn/ui · Tailwind v4 (OKLCH) · Zod 4 · Du
 | `next-devtools` | Connects to the running `next dev` server for live runtime errors, route trees, server logs, and a `nextjs_docs` gateway that reads local `node_modules/next/dist/docs/`. **Run `npm run dev` first** for the live-error tools. |
 | `shadcn` | Live registry: search/browse/view/install across the shadcn ecosystem (`shadcn:search_items_in_registries`, `shadcn:view_items_in_registries`, `shadcn:get_add_command_for_items`). Needs `components.json` (present). |
 | `duckdb` | SQL over the local DuckDB file (`${DUCKDB_PATH:-./data/dev.duckdb}`), **read-write** — can create/drop tables while prototyping. |
-| `google-docs` | Live search across Google's developer documentation (Developer Knowledge MCP). Only active when `GOOGLE_API_KEY` is set. |
 
 ## Conventions
 
