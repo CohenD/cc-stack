@@ -53,13 +53,12 @@ ensure_uv
 
 # 3. Node dependencies ------------------------------------------------------
 bold "Installing npm dependencies"
-npm install
+npm ci
 ok "node_modules ready"
 
 # 4. Skills -----------------------------------------------------------------
-bold "Verifying skills (vendored in repo; restoring from skills-lock.json)"
-npx -y skills experimental_install </dev/null 2>/dev/null || warn "lockfile restore skipped — skills are already vendored in the repo"
-ok "skills ready"
+# Skills are vendored as plain files in .claude/skills/ — Claude Code discovers
+# them on clone with no install step. Nothing to do here.
 
 # 5. DuckDB: data dir + pre-fetch server ------------------------------------
 bold "DuckDB workspace"
@@ -67,7 +66,7 @@ mkdir -p data
 ok "data/ ready for DuckDB files (default: ./data/dev.duckdb)"
 if command -v uvx >/dev/null 2>&1; then
   printf "  … pre-fetching mcp-server-motherduck (first run only)\n"
-  if uvx mcp-server-motherduck --help >/dev/null 2>&1; then
+  if uvx mcp-server-motherduck@1.0.7 --help >/dev/null 2>&1; then
     ok "DuckDB MCP server cached — starts instantly in Claude Code"
   else
     warn "could not pre-fetch the DuckDB server now; it'll download on first use"

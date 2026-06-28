@@ -1,17 +1,20 @@
 {
   "mcpServers": {
     "next-devtools": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"]
+      "args": ["-y", "next-devtools-mcp@0.4.0"]
     },
     "shadcn": {
+      "type": "stdio",
       "command": "npx",
       "args": ["-y", "shadcn@latest", "mcp"]
     },
     "duckdb": {
+      "type": "stdio",
       "command": "uvx",
       "args": [
-        "mcp-server-motherduck",
+        "mcp-server-motherduck@1.0.7",
         "--db-path",
         "${DUCKDB_PATH:-./data/dev.duckdb}",
         "--read-write"

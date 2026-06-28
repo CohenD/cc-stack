@@ -8,7 +8,7 @@ when a live source exists.
 
 Next.js 16 · Vercel AI SDK 7 · shadcn/ui · Tailwind v4 (OKLCH) · Zod 4 · DuckDB
 
-## Skills (vendored in `.agents/skills/`, tracked by `skills-lock.json`)
+## Skills (vendored as plain files in `.claude/skills/`)
 
 | Skill | Use it when |
 | --- | --- |

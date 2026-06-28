@@ -1,7 +1,10 @@
+import { Button } from "@/components/ui/button";
+
 const skills = [
   { name: "ai-sdk", desc: "Vercel AI SDK 7 — agents, streaming, tools" },
   { name: "migrate-ai-sdk-v6-to-v7", desc: "AI SDK v6 → v7 upgrades" },
   { name: "shadcn", desc: "Component registry + theming" },
+  { name: "zod", desc: "Zod v4 schemas, inference, codecs" },
 ];
 
 const servers = [
@@ -56,12 +59,17 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="text-sm text-muted-foreground">
-        Edit{" "}
-        <code className="rounded bg-muted px-1.5 py-0.5 font-mono">
-          app/page.tsx
-        </code>{" "}
-        to get started, or ask Claude to build a feature.
+      <footer className="flex flex-col items-start gap-4 text-sm text-muted-foreground">
+        <p>
+          Edit{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 font-mono">
+            app/page.tsx
+          </code>{" "}
+          to get started, or ask Claude to build a feature.
+        </p>
+        <Button asChild>
+          <a href="https://github.com/CohenD/cc-stack">View the repo</a>
+        </Button>
       </footer>
     </main>
   );
