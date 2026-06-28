@@ -15,6 +15,7 @@ Next.js 16 · Vercel AI SDK 7 · shadcn/ui · Tailwind v4 (OKLCH) · Zod 4 · Du
 | `ai-sdk` | Building anything with the Vercel AI SDK — `generateText`, `streamText`, agents, tools, `useChat`, structured output, embeddings. |
 | `migrate-ai-sdk-v6-to-v7` | Upgrading AI SDK code from v6 → v7 (breaking changes, `system`→`instructions`, telemetry, tool context). |
 | `shadcn` | Adding/searching/styling shadcn components, working with `components.json`, registries, or `--preset` codes. |
+| `frontend-design` | Designing or restyling **any** UI — set the aesthetic direction, typography pairing, palette, and a signature element so output doesn't read as templated AI defaults. Composes with `shadcn` + Tailwind v4. |
 | `zod` | Writing or debugging Zod **v4** schemas — `.refine()`, `.transform()`, `z.codec()`, type inference, `z.toJSONSchema()`, error handling, or v3→v4 migration. Has references for advanced patterns, type-inference, and a migration guide. |
 
 ## MCP servers (`.mcp.json`, auto-approved via `.claude/settings.json`)
@@ -33,6 +34,11 @@ Next.js 16 · Vercel AI SDK 7 · shadcn/ui · Tailwind v4 (OKLCH) · Zod 4 · Du
   colors via `@theme inline` (Tailwind v4), never a new CSS file.
 - **Components:** Prefer the `shadcn` MCP to find/install components over writing
   primitives by hand. Merge classes with `cn()` from `@/lib/utils`.
+- **Design (avoid generic output):** Before building or restyling UI, use the
+  `frontend-design` skill to commit to an intentional aesthetic direction
+  (typography, palette, a signature element). It steers away from default
+  AI-slop looks and layers on top of `shadcn` components + the Tailwind v4 OKLCH
+  tokens — don't ship default-shadcn-everywhere.
 - **AI features:** Use the `ai-sdk` skill; default to the latest Claude models via
   `@ai-sdk/anthropic`.
 - **Next.js runtime issues:** Use `next-devtools` MCP to read real errors and the

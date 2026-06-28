@@ -28,3 +28,4 @@ retaining its own upstream license:
 - `ai-sdk`, `migrate-ai-sdk-v6-to-v7` — from github.com/vercel/ai (Apache-2.0)
 - `shadcn` — from github.com/shadcn-ui/ui (MIT)
 - `zod` — from github.com/secondsky/claude-skills (MIT)
+- `frontend-design` — from github.com/anthropics/skills (see its bundled LICENSE.txt)

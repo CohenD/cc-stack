@@ -54,6 +54,7 @@ nothing to install, no network needed.
 | `ai-sdk` | `vercel/ai` | Build with the Vercel AI SDK (generateText/streamText/agents/tools/useChat). |
 | `migrate-ai-sdk-v6-to-v7` | `vercel/ai` | Upgrade AI SDK code from v6 → v7. |
 | `shadcn` | `shadcn/ui` | Add/search/style shadcn components; understands your `components.json`. |
+| `frontend-design` | `anthropics/skills` | Distinctive, intentional UI design — typography, palette, signature element — so output doesn't read as templated AI defaults. Pairs with `shadcn` + Tailwind v4. |
 | `zod` | `secondsky/claude-skills` | Zod **v4** expert: type inference, `.refine()`/`.transform()`, `z.codec()`, JSON-Schema, error handling, v3→v4 migration. |
 
 ### MCP servers — [`.mcp.json`](./.mcp.json), allow-listed by [`.claude/settings.json`](./.claude/settings.json)
